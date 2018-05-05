@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+    <title>Autenticacion</title>
+
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+
+  <style>
+    fieldset {
+      margin-bottom: 1em;
+     
+      width: 30%;
+    }
+    input {
+      display: block;
+      margin-bottom: .25em;
+      margin-right: 5em;
+      margin-left: 1em;
+      margin-top: .25em;
+    }
+
+    label {
+      margin-left: 1em;
+    }
+
+
+    #print-output {
+      width: 100%;
+    }
+    .print-output-line {
+      white-space: pre;
+      padding: 5px;
+      font-family: monaco, monospace;
+      font-size: .7em;
+    }
+
+    body {
+        font-size:18px;
+        font-weight: 400;
+    }
+
+    .p-y-2 {
+        padding-top: 28px;
+        padding-bottom: 28px;
+    }
+    .p-y-3 {
+        padding-top: 45px;
+        padding-bottom: 45px;
+    }
+    .m-b-1 {
+        margin-bottom: 18px;
+    }
+    .m-t-1 {
+        margin-top: 18px;
+    }
+
+
+            /*==========================================================
+                           counter section style
+            ============================================================*/
+
+            .main_counter_area{
+                background-size: cover;
+                overflow: hidden;
+            }
+            .main_counter_area .main_counter_content .single_counter{
+                background: rgba(84, 92, 246, 0.95);
+                    color: #fff;
+            }
+            .main_counter_area .main_counter_content .single_counter i{
+                font-size:36px;
+                font-color: #0;
+            }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+</head>
+
+<body>
+ 
+	<form action = "/sentenceTyped" method = "post">
+  		<fieldset>
+    		<label for="nombre">Nombre:</label>
+		    <input id="nombre" type="text" name="nombre">
+		    <label for="password">Password:</label>
+		    <input id="password" type="text">
+  		</fieldset>
+  		
+  		<fieldset>
+		    <input type = "hidden" name="tiempoMedioDeVueloForm" id = "tiempoMedioDeVueloForm"/>
+		    <input type = "hidden"  name="tiempoMedioDePulsacionPorTeclaForm"/ id="tiempoMedioDePulsacionPorTeclaForm">
+		    <input type = "hidden"  name="tiempoTranscurridoParaTeclearLaFraseForm" id ="tiempoTranscurridoParaTeclearLaFraseForm"/>
+        <input type = "hidden" name="numeroDeFallosForm" id = "numeroDeFallosForm"/>
+		    <input type="submit" class="btn btn-info" value="Submit">
+  		</fieldset>
+	</form>
+
+	<section id="counter" class="counter">
+        <div class="main_counter_area">
+            <div class="overlay p-y-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="main_counter_content text-center white-text wow fadeInUp">
+                                <div class="col-md-3">
+                                    <div class="single_counter p-y-2 m-t-1">
+                                        <i  class="fa fa-heart m-b-1"></i>
+                                        <h2 id="duracionPulsacion" class="statistic-counter">0</h2>
+                                        <p>Duración de la pulsación</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="single_counter p-y-2 m-t-1">
+                                        <i class="fa fa-check m-b-1"></i>
+                                        <h2 id="tiempoDeVuelo" class="statistic-counter">0</h2>
+                                        <p>Tiempo de vuelo</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="single_counter p-y-2 m-t-1">
+                                        <i class="fa fa-refresh m-b-1"></i>
+                                        <h2 id="numeroDeTeclasPulsadas" class="statistic-counter">0</h2>
+                                        <p>Numero de teclas pulsadas</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="single_counter p-y-2 m-t-1">
+                                        <i class="fa fa-beer m-b-1"></i>
+                                        <h2 id="tiempoMedioDeVuelo" class="statistic-counter">0</h2>
+                                        <p>Tiempo medio de vuelo</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="single_counter p-y-2 m-t-1">
+                                        <i class="fa fa-beer m-b-1"></i>
+                                        <h2 id="tiempoMedioDePulsacion" class="statistic-counter">0</h2>
+                                        <p>Tiempo medio de pulsacion</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="single_counter p-y-2 m-t-1">
+                                        <i class="fa fa-beer m-b-1"></i>
+                                        <h2 id="tiempoTotalEnTeclearLaFrase" class="statistic-counter">0</h2>
+                                        <p>Tiempo total en teclear la frase</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="single_counter p-y-2 m-t-1">
+                                        <i class="fa fa-beer m-b-1"></i>
+                                        <h2 id="numeroDeFallos" class="statistic-counter">0</h2>
+                                        <p>Numero de fallos</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section><!-- End of counter Section -->
+
+
+	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<script type="text/javascript">
+
+  var numeroDeTeclasPulsadas = 0;
+  var numeroDeFallos = 0;
+
+  var tiempoPulsacionTecla = 0;
+  var tiemposPulsacionesTeclas = [];
+  var tiempoMedioPulsacionPorTecla = 0;
+  var timeStampAlPulsarLaTecla = 0;
+  var timeStampAlSoltarLaTecla = 0;
+  
+  var tiempoDeVuelo = 0;
+  var tiemposDeVuelo = [];
+  var tiempoMedioDeVuelo = 0;
+
+  var tiempoTranscurridoParaTeclearLaFrase = 0;
+  var timeStampInicial = 0;
+
+  var timeStampTeclaAnterior = 0;
+
+
+  $( "#password" ).keypress(function( event ) {
+    //Si la tecla pulsada es enter
+    if ( event.which == 13 && numeroDeTeclasPulsadas > 0 ) { 
+      event.preventDefault();
+      var tiempoDeVueloTotal = 0;
+      var tiempoPulsacionTeclasTotal = 0;
+
+      for (let index = 0; index < numeroDeTeclasPulsadas; ++index) {
+        tiempoDeVueloTotal += tiemposDeVuelo[index];
+        tiempoPulsacionTeclasTotal += tiemposPulsacionesTeclas[index];
+      }
+
+      tiempoMedioPulsacionPorTecla = tiempoPulsacionTeclasTotal / numeroDeTeclasPulsadas;
+      tiempoMedioDeVuelo = tiempoDeVueloTotal / numeroDeTeclasPulsadas;
+      tiempoTranscurridoParaTeclearLaFrase = event.timeStamp - timeStampInicial;
+
+      numeroDeFallos = numeroDeTeclasPulsadas - 19;
+
+      //Para que la función que se invoca al pulsar submit pueda hacer request.form
+      $("#tiempoMedioDeVueloForm").val(tiempoMedioDeVuelo);
+      $("#tiempoMedioDePulsacionPorTeclaForm").val(tiempoMedioPulsacionPorTecla);
+      $("#tiempoTranscurridoParaTeclearLaFraseForm").val(tiempoTranscurridoParaTeclearLaFrase);
+
+      $("#numeroDeFallosForm").val(numeroDeFallos);
+     
+     //Para mostrar los datos por pantalla
+      document.getElementById("tiempoMedioDeVuelo").innerHTML = parseInt(tiempoMedioDeVuelo)
+       + " ms";
+
+      document.getElementById("tiempoMedioDePulsacion").innerHTML = parseInt(tiempoMedioPulsacionPorTecla) + " ms";
+
+      document.getElementById("tiempoTotalEnTeclearLaFrase").innerHTML = parseInt(tiempoTranscurridoParaTeclearLaFrase) + " ms";
+
+      document.getElementById("numeroDeFallos").innerHTML = numeroDeFallos;
+      
+      numeroDeTeclasPulsadas = 0;
+      numeroDeFallos = 0;
+      tiemposDeVuelo = [];
+      tiemposPulsacionesTeclas = [];
+      $("#password").val("");
+
+    } else {
+      
+      if (numeroDeTeclasPulsadas == 0) {
+        timeStampInicial = event.timeStamp;
+      }
+      
+      timeStampAlPulsarLaTecla = event.timeStamp;
+      tiempoDeVuelo = event.timeStamp - timeStampTeclaAnterior;
+      
+      numeroDeTeclasPulsadas += 1;
+      
+      tiemposDeVuelo.push(tiempoDeVuelo);
+   
+      timeStampTeclaAnterior = event.timeStamp;
+      
+      document.getElementById("tiempoDeVuelo").innerHTML = parseInt(tiempoPulsacionTecla) + " ms";
+      
+      document.getElementById("numeroDeTeclasPulsadas").innerHTML = numeroDeTeclasPulsadas;
+    }
+  });
+
+  $( "#password" ).keyup(function( event ) {
+    if ( event.which == 13 ) { 
+      event.preventDefault();
+    } else {
+      timeStampAlSoltarLaTecla = event.timeStamp;
+      tiempoPulsacionTecla = timeStampAlSoltarLaTecla - timeStampAlPulsarLaTecla;
+      tiemposPulsacionesTeclas.push(tiempoPulsacionTecla);
+
+      document.getElementById("duracionPulsacion").innerHTML = parseInt(tiempoPulsacionTecla) + " ms";
+      
+    }
+  });
+
+
+     
+</script>
+
+ 
+</body>
+</html>
