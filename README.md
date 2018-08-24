@@ -6,7 +6,7 @@ Para ello en el campo contraseña se escribirá la frase **TRES TRISTES TIGRES**
 
 
 ### Instalación del entorno
-Para no tener que realizar muchas instalaciones es conveniente instalar un entorno virtual e instalar los paquetes necesarios en él. PAra instalr el entorno virtual:
+Para no tener que realizar muchas instalaciones es conveniente instalar un entorno virtual e instalar los paquetes necesarios en él. Para instalar el entorno virtual:
 
 1. Instalar python
 
@@ -27,7 +27,7 @@ source env/bin/activate
 ```
 
 ### Ejecución de la aplicación
-Una vez instalado el entorno virtual ya se puede ejecutar la palicación ejecutando los siguientes comandos:
+Una vez instalado el entorno virtual ya se puede ejecutar la aplicación ejecutando los siguientes comandos:
 
 1. Ejecutar el servidor de mongo
 
