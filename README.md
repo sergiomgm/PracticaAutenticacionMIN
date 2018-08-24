@@ -6,7 +6,7 @@ Para ello en el campo contraseña se escribirá la frase **TRES TRISTES TIGRES**
 
 
 ### Instalación del entorno
-Para no tener que realizar muchas instalaciones es conveniente instalar un entorno virtual e instalar los paquetes necesarios en él. Para instalar el entorno virtual:
+Para no instalar todos los paquetes de python en el ordenador es conveniente instalar un entorno virtual para ejecutar la aplicación. Para instalar el entorno virtual:
 
 1. Instalar python
 
@@ -14,7 +14,7 @@ Para no tener que realizar muchas instalaciones es conveniente instalar un entor
 sudo easy_intall pip
 ```
 
-2. Instalar entrono virtual
+2. Instalar entorno virtual
 
 ```
 virtualenv env
@@ -35,7 +35,7 @@ Una vez instalado el entorno virtual ya se puede ejecutar la aplicación ejecuta
 mongod
 ```
 
-2. Lanzar la aplicación para que se inicie el servidor, para ello situarse en el directorio donde est´ñe el fichero index.py
+2. Lanzar la aplicación para que se inicie el servidor, para ello situarse en el directorio donde esté el fichero index.py
 
 ```
 python index.py
