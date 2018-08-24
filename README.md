@@ -6,7 +6,7 @@ Para ello en el campo contraseña se escribirá la frase **TRES TRISTES TIGRES**
 
 
 ### Instalación del entorno
-Para no instalar todos los paquetes de python en el ordenador es conveniente instalar un entorno virtual para ejecutar la aplicación. Para instalar el entorno virtual:
+Para no instalar todos los paquetes de python en el ordenador es conveniente instalar un entorno virtual para ejecutar la aplicación. **Los pasos descritos a continuación sólo es necesario reallizarlos la primera vez que se jecute la aplicación en caso de not ener el entorno virtual instalado previamente:**
 
 1. Instalar python
 
@@ -20,11 +20,7 @@ sudo easy_intall pip
 virtualenv env
 ```
 
-3. Iniciar entrono virtual
 
-```
-source env/bin/activate
-```
 
 ### Ejecución de la aplicación
 Una vez instalado el entorno virtual ya se puede ejecutar la aplicación ejecutando los siguientes comandos:
@@ -35,16 +31,22 @@ Una vez instalado el entorno virtual ya se puede ejecutar la aplicación ejecuta
 mongod
 ```
 
-2. Lanzar la aplicación para que se inicie el servidor, para ello situarse en el directorio donde esté el fichero index.py
+2. Iniciar entorno virtual
+
+```
+source env/bin/activate
+```
+
+3. Lanzar la aplicación para que se inicie el servidor, para ello situarse en el directorio donde esté el fichero index.py
 
 ```
 python index.py
 ```
 
-3. Ejecutar el modelo para que se entrene cuando se generen nuevos datos en la base de datos.
+4. Ejecutar el modelo para que se entrene cuando se generen nuevos datos en la base de datos.
 
 ```
 python model.py
 ```
 
-4. Abrir el navegador en la IP indicada en el paso 2.
+5. Abrir el navegador en la IP indicada en el paso 3.
