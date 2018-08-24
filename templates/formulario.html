@@ -4,106 +4,46 @@
   <meta charset="utf-8">
     <title>Autenticacion</title>
 
-
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
   
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
 
-  <style>
-    fieldset {
-      margin-bottom: 1em;
-     
-      width: 30%;
-    }
-    input {
-      display: block;
-      margin-bottom: .25em;
-      margin-right: 5em;
-      margin-left: 1em;
-      margin-top: .25em;
-    }
-
-    label {
-      margin-left: 1em;
-    }
-
-
-    #print-output {
-      width: 100%;
-    }
-    .print-output-line {
-      white-space: pre;
-      padding: 5px;
-      font-family: monaco, monospace;
-      font-size: .7em;
-    }
-
-    body {
-        font-size:18px;
-        font-weight: 400;
-    }
-
-    .p-y-2 {
-        padding-top: 28px;
-        padding-bottom: 28px;
-    }
-    .p-y-3 {
-        padding-top: 45px;
-        padding-bottom: 45px;
-    }
-    .m-b-1 {
-        margin-bottom: 18px;
-    }
-    .m-t-1 {
-        margin-top: 18px;
-    }
-
-
-            /*==========================================================
-                           counter section style
-            ============================================================*/
-
-            .main_counter_area{
-                background-size: cover;
-                overflow: hidden;
-            }
-            .main_counter_area .main_counter_content .single_counter{
-                background: rgba(84, 92, 246, 0.95);
-                    color: #fff;
-            }
-            .main_counter_area .main_counter_content .single_counter i{
-                font-size:36px;
-                font-color: #0;
-            }
-  </style>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/mycss.css') }}"/>
 
 </head>
 
 <body>
- 
-	<form action = "/sentenceTyped" method = "post">
+
+	<form action = "/sentenceTyped" method = "post" id = "formulario" class = "mx-auto">
+   
   		<fieldset>
     		<label for="nombre">Nombre:</label>
-		    <input id="nombre" type="text" name="nombre">
+		    <input id="nombre" type="text" name="nombre" value="Sergio">
 		    <label for="password">Password:</label>
-		    <input id="password" type="text">
+		    <input id="password" type="text" autocomplete="off">
   		</fieldset>
   		
   		<fieldset>
-		    <input type = "hidden" name="tiempoMedioDeVueloForm" id = "tiempoMedioDeVueloForm"/>
-		    <input type = "hidden"  name="tiempoMedioDePulsacionPorTeclaForm"/ id="tiempoMedioDePulsacionPorTeclaForm">
+		    <input type = "hidden" name="tiemposDeVueloForm" id = "tiemposDeVueloForm"/>
+		    <input type = "hidden"  name="tiemposPulsacionesTeclasForm" id="tiemposPulsacionesTeclasForm" />
 		    <input type = "hidden"  name="tiempoTranscurridoParaTeclearLaFraseForm" id ="tiempoTranscurridoParaTeclearLaFraseForm"/>
-        <input type = "hidden" name="numeroDeFallosForm" id = "numeroDeFallosForm"/>
-		    <input type="submit" class="btn btn-info" value="Submit">
+		    <input type="submit" class="btn btn-info" value="Submit" id="submitButton" disabled>
   		</fieldset>
 	</form>
+
+
+
+
+  <!-- Hecho así tras una hora intentando coger un solo carácter y cambiarle el color teniendo un único span, lo dejo así hasta que consiga hacerlo mejor -->
+  <span style="color:red;font-size:160%;" id="frase"><span id="0">T</span><span id="1">R</span><span id="2">E</span><span id="3">S</span><span id="4"> </span><span id="5">T</span><span id="6">R</span><span id="7">I</span><span id="8">S</span><span id="9">T</span><span id="10">E</span><span id="11">S</span><span id="12"> </span><span id="13">T</span><span id="14">I</span><span id="15">G</span><span id="16">R</span><span id="17">E</span><span id="18">S</span></span>
 
 	<section id="counter" class="counter">
         <div class="main_counter_area">
@@ -118,6 +58,7 @@
                                         <p>Duración de la pulsación</p>
                                     </div>
                                 </div>
+
                                 <div class="col-md-3">
                                     <div class="single_counter p-y-2 m-t-1">
                                         <i class="fa fa-check m-b-1"></i>
@@ -125,39 +66,13 @@
                                         <p>Tiempo de vuelo</p>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="single_counter p-y-2 m-t-1">
-                                        <i class="fa fa-refresh m-b-1"></i>
-                                        <h2 id="numeroDeTeclasPulsadas" class="statistic-counter">0</h2>
-                                        <p>Numero de teclas pulsadas</p>
-                                    </div>
-                                </div>
+                            
+                            
                                 <div class="col-md-3">
                                     <div class="single_counter p-y-2 m-t-1">
                                         <i class="fa fa-beer m-b-1"></i>
-                                        <h2 id="tiempoMedioDeVuelo" class="statistic-counter">0</h2>
-                                        <p>Tiempo medio de vuelo</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="single_counter p-y-2 m-t-1">
-                                        <i class="fa fa-beer m-b-1"></i>
-                                        <h2 id="tiempoMedioDePulsacion" class="statistic-counter">0</h2>
-                                        <p>Tiempo medio de pulsacion</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="single_counter p-y-2 m-t-1">
-                                        <i class="fa fa-beer m-b-1"></i>
-                                        <h2 id="tiempoTotalEnTeclearLaFrase" class="statistic-counter">0</h2>
-                                        <p>Tiempo total en teclear la frase</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="single_counter p-y-2 m-t-1">
-                                        <i class="fa fa-beer m-b-1"></i>
-                                        <h2 id="numeroDeFallos" class="statistic-counter">0</h2>
-                                        <p>Numero de fallos</p>
+                                        <h2 id="tiempoTranscurrido" class="statistic-counter">0</h2>
+                                        <p>Tiempo transcurrido</p>
                                     </div>
                                 </div>
                             </div>
@@ -170,106 +85,95 @@
 
 	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
-<script type="text/javascript">
+  <script type="text/javascript">
+      var tiempoPulsacionTecla = 0;
+      var tiemposPulsacionesTeclas = [];
+     
+      var timeStampAlPulsarLaTecla = 0;
+      var timeStampAlSoltarLaTeclaActual = 0;
+      var timeStampAlSoltarLaTeclaAnterior = 0;
+      
+      var tiempoDeVuelo = 0;
+      var tiemposDeVuelo = [];
+      var tiempoTranscurridoParaTeclearLaFrase = 0;
+      var timeStampInicial = 0;
+      var timeStampTeclaAnterior = 0;
+      
+      //Estos números corresponden al número del evento que se dispara al pulsar
+      //cada tecla, ordenados igual que la frase "Tres tristes tigres"
+      var eventosPorTecla = [84, 82, 69, 83, 32, 84, 82, 73, 83, 84, 69, 83, 32, 84, 73, 71, 82, 69, 83];
+      var numeroDeTeclasPulsadas = 0;
+      var numeroDeTeclasSoltadas = 0;
+      var actualizarTiempoTranscurrido;
 
-  var numeroDeTeclasPulsadas = 0;
-  var numeroDeFallos = 0;
+      var initialTime;
 
-  var tiempoPulsacionTecla = 0;
-  var tiemposPulsacionesTeclas = [];
-  var tiempoMedioPulsacionPorTecla = 0;
-  var timeStampAlPulsarLaTecla = 0;
-  var timeStampAlSoltarLaTecla = 0;
-  
-  var tiempoDeVuelo = 0;
-  var tiemposDeVuelo = [];
-  var tiempoMedioDeVuelo = 0;
-
-  var tiempoTranscurridoParaTeclearLaFrase = 0;
-  var timeStampInicial = 0;
-
-  var timeStampTeclaAnterior = 0;
-
-
-  $( "#password" ).keypress(function( event ) {
-    //Si la tecla pulsada es enter
-    if ( event.which == 13 && numeroDeTeclasPulsadas > 0 ) { 
-      event.preventDefault();
-      var tiempoDeVueloTotal = 0;
-      var tiempoPulsacionTeclasTotal = 0;
-
-      for (let index = 0; index < numeroDeTeclasPulsadas; ++index) {
-        tiempoDeVueloTotal += tiemposDeVuelo[index];
-        tiempoPulsacionTeclasTotal += tiemposPulsacionesTeclas[index];
+      //Actualiza el contador de tiempo transcurrido
+      var func = function() {
+        document.getElementById("tiempoTranscurrido").innerHTML = new Date().getTime() - initialTime + " s";
       }
 
-      tiempoMedioPulsacionPorTecla = tiempoPulsacionTeclasTotal / numeroDeTeclasPulsadas;
-      tiempoMedioDeVuelo = tiempoDeVueloTotal / numeroDeTeclasPulsadas;
-      tiempoTranscurridoParaTeclearLaFrase = event.timeStamp - timeStampInicial;
+      $( "#password" ).keypress(function( event ) {
+        //Si la tecla pulsada es enter y se han pulsado y soltado previamente todas las teclas
+        //Es necesario poner teclas soltadas porque si se pulsa enter sin haber soltado la 
+        //última s el último tiempo de pulsación no se mandaba a través del servidor
+        if ( event.which == 13 && numeroDeTeclasPulsadas == "Tres tristes tigres".length && numeroDeTeclasSoltadas == "Tres tristes tigres".length ) { 
+          event.preventDefault();
+          tiempoTranscurridoParaTeclearLaFrase = event.timeStamp - timeStampInicial;
 
-      numeroDeFallos = numeroDeTeclasPulsadas - 19;
+          //Para que la función que se invoca al pulsar submit pueda hacer request.form
+          $("#tiemposDeVueloForm").val(tiemposDeVuelo);
+          $("#tiemposPulsacionesTeclasForm").val(tiemposPulsacionesTeclas);
+          $("#tiempoTranscurridoParaTeclearLaFraseForm").val(tiempoTranscurridoParaTeclearLaFrase);
+        
+          //Para mostrar los datos por pantalla
+          document.getElementById("tiempoTranscurrido").innerHTML = parseInt(tiempoTranscurridoParaTeclearLaFrase) + " ms";
+          
+          $("#password").val("");
+          clearInterval(actualizarTiempoTranscurrido);
+          document.getElementById("submitButton").disabled = false;
 
-      //Para que la función que se invoca al pulsar submit pueda hacer request.form
-      $("#tiempoMedioDeVueloForm").val(tiempoMedioDeVuelo);
-      $("#tiempoMedioDePulsacionPorTeclaForm").val(tiempoMedioPulsacionPorTecla);
-      $("#tiempoTranscurridoParaTeclearLaFraseForm").val(tiempoTranscurridoParaTeclearLaFrase);
+        } else if (event.which == eventosPorTecla[numeroDeTeclasPulsadas]) {
 
-      $("#numeroDeFallosForm").val(numeroDeFallos);
-     
-     //Para mostrar los datos por pantalla
-      document.getElementById("tiempoMedioDeVuelo").innerHTML = parseInt(tiempoMedioDeVuelo)
-       + " ms";
+          timeStampAlPulsarLaTecla = event.timeStamp;
+          tiempoDeVuelo = event.timeStamp - timeStampAlSoltarLaTeclaAnterior;
+          
+          if (numeroDeTeclasPulsadas == 0) {
+            timeStampInicial = event.timeStamp;
+            timeStampTeclaAnterior = event.timeStamp;
+            initialTime = new Date().getTime();
+            actualizarTiempoTranscurrido = setInterval(func, 1);
+          } else {
+            tiemposDeVuelo.push(tiempoDeVuelo);
+          }
 
-      document.getElementById("tiempoMedioDePulsacion").innerHTML = parseInt(tiempoMedioPulsacionPorTecla) + " ms";
+          document.getElementById(numeroDeTeclasPulsadas).style.color ="green";
+          
+          timeStampTeclaAnterior = event.timeStamp;
+          
+          document.getElementById("tiempoDeVuelo").innerHTML = parseInt(tiempoDeVuelo) + " ms"; 
 
-      document.getElementById("tiempoTotalEnTeclearLaFrase").innerHTML = parseInt(tiempoTranscurridoParaTeclearLaFrase) + " ms";
+          numeroDeTeclasPulsadas += 1;   
+        }
+      });
 
-      document.getElementById("numeroDeFallos").innerHTML = numeroDeFallos;
-      
-      numeroDeTeclasPulsadas = 0;
-      numeroDeFallos = 0;
-      tiemposDeVuelo = [];
-      tiemposPulsacionesTeclas = [];
-      $("#password").val("");
+      $( "#password" ).keyup(function( event ) {
+        if ( event.which == 13 ) { 
+          event.preventDefault();
+        } else if (event.which == eventosPorTecla[numeroDeTeclasSoltadas]) {
 
-    } else {
-      
-      if (numeroDeTeclasPulsadas == 0) {
-        timeStampInicial = event.timeStamp;
-      }
-      
-      timeStampAlPulsarLaTecla = event.timeStamp;
-      tiempoDeVuelo = event.timeStamp - timeStampTeclaAnterior;
-      
-      numeroDeTeclasPulsadas += 1;
-      
-      tiemposDeVuelo.push(tiempoDeVuelo);
-   
-      timeStampTeclaAnterior = event.timeStamp;
-      
-      document.getElementById("tiempoDeVuelo").innerHTML = parseInt(tiempoPulsacionTecla) + " ms";
-      
-      document.getElementById("numeroDeTeclasPulsadas").innerHTML = numeroDeTeclasPulsadas;
-    }
-  });
+          timeStampAlSoltarLaTeclaActual = event.timeStamp;
+          timeStampAlSoltarLaTeclaAnterior = event.timeStamp;
+          tiempoPulsacionTecla = timeStampAlSoltarLaTeclaActual - timeStampAlPulsarLaTecla;
 
-  $( "#password" ).keyup(function( event ) {
-    if ( event.which == 13 ) { 
-      event.preventDefault();
-    } else {
-      timeStampAlSoltarLaTecla = event.timeStamp;
-      tiempoPulsacionTecla = timeStampAlSoltarLaTecla - timeStampAlPulsarLaTecla;
-      tiemposPulsacionesTeclas.push(tiempoPulsacionTecla);
+          tiemposPulsacionesTeclas.push(tiempoPulsacionTecla);   
+          
+          document.getElementById("duracionPulsacion").innerHTML = parseInt(tiempoPulsacionTecla) + " ms";   
+          ++numeroDeTeclasSoltadas;
+        }
+      });
 
-      document.getElementById("duracionPulsacion").innerHTML = parseInt(tiempoPulsacionTecla) + " ms";
-      
-    }
-  });
+  </script>
 
-
-     
-</script>
-
- 
 </body>
 </html>

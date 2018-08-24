@@ -6,7 +6,8 @@ import datetime
 import sklearn
 from sklearn.externals import joblib
 
-from TypingPersonality import TypingPersonality
+from TypingPattern import TypingPattern
+from Usuario import Usuario
 
 app = Flask(__name__)
 
@@ -14,30 +15,24 @@ app = Flask(__name__)
 def formulario():
   return render_template("formulario.html")
 
-
 @app.route("/sentenceTyped", methods=['POST'])
 def formularioRellenado():
   nombre = request.form['nombre']
-  tiempoMedioPulsacion = float(request.form['tiempoMedioDePulsacionPorTeclaForm'])
-  tiempoMedioVuelo = float(request.form['tiempoMedioDeVueloForm'])
+  tiemposDeVuelo = [float(tiempo) for tiempo in (x.strip() for x in request.form['tiemposDeVueloForm'].split(','))]
+  tiemposPulsacionesTeclas = [float(tiempo) for tiempo in (x.strip() for x in request.form['tiemposPulsacionesTeclasForm'].split(','))]
   tiempoEnTeclearLaFrase = float(request.form['tiempoTranscurridoParaTeclearLaFraseForm'])
-  numeroDeFallos = int(request.form['numeroDeFallosForm'])
 
-  if (nombre == "Sergio"):
-    typingPersonality = TypingPersonality(1, tiempoMedioPulsacion, tiempoMedioVuelo, tiempoEnTeclearLaFrase)
-  else: 
-    typingPersonality = TypingPersonality(0, tiempoMedioPulsacion, tiempoMedioVuelo, tiempoEnTeclearLaFrase)
-    
-  clf = joblib.load('clf.pkl')
-  typingPersonality.predict(clf)
-
-  typingPersonality.save() 
-
-  if (typingPersonality.prediction == 0): #Si no es Sergio
-    return render_template("submitNoSergio.html") 
-  else:
-    return render_template("submitCorrecto.html")
+  target = Usuario.Sergio.value if nombre.upper() == "SERGIO" else Usuario.Otro.value
+  typingPattern = TypingPattern(target, tiemposPulsacionesTeclas, tiemposDeVuelo, tiempoEnTeclearLaFrase)
   
+  typingPattern.save()
+
+  clf = joblib.load('clf.pkl')
+  typingPattern.predict(clf)
+
+  template = "submitCorrecto.html" if typingPattern.prediction == Usuario.Sergio.value else "submitNoSergio.html"
+  
+  return render_template(template) 
 
 app.debug = True
 
