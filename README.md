@@ -6,7 +6,7 @@ Para ello en el campo contraseña se escribirá la frase **TRES TRISTES TIGRES**
 
 
 ### Instalación del entorno
-Para no instalar todos los paquetes de python en el ordenador es conveniente instalar un entorno virtual para ejecutar la aplicación. **Los pasos descritos a continuación sólo es necesario reallizarlos la primera vez que se jecute la aplicación en caso de not ener el entorno virtual instalado previamente:**
+Para no instalar todos los paquetes de python en el ordenador es conveniente instalar un entorno virtual para ejecutar la aplicación. **Los pasos descritos a continuación sólo es necesario reallizarlos la primera vez que se ejecute la aplicación en caso de no tener el entorno virtual instalado previamente:**
 
 1. Instalar python
 
