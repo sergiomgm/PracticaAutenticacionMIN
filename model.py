@@ -39,7 +39,7 @@ def train():
       typingPattern.tiempoQueTardaEnTeclearLaFrase = float(t["tiempoQueTardaEnTeclearLaFrase"])
       typingPattern.target = int(t["target"])
       records.append(typingPattern.toTuple())
-    except ValueError,e:
+    except ValueError, e:
       print "error : ",e, " element ", j
 
   features = ["tiempoMedioDePulsacionDeLasTeclasDeLaPrimeraFila", "tiempoMedioDePulsacionDeLasTeclasDeLaSegundaFila", 
