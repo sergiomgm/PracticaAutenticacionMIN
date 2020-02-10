@@ -39,8 +39,8 @@ def train():
       typingPattern.tiempoQueTardaEnTeclearLaFrase = float(t["tiempoQueTardaEnTeclearLaFrase"])
       typingPattern.target = int(t["target"])
       records.append(typingPattern.toTuple())
-    except ValueError, e:
-      print "error : ",e, " element ", j
+    except ValueError as e:
+      print (f"error : {e}, element {j}")
 
   features = ["tiempoMedioDePulsacionDeLasTeclasDeLaPrimeraFila", "tiempoMedioDePulsacionDeLasTeclasDeLaSegundaFila", 
               "tiempoMedioPulsacionDeLaT", "tiempoMedioPulsacionDeLaR", "tiempoMedioPulsacionDeLaE", "tiempoMedioPulsacionDeLaS", 
@@ -109,11 +109,11 @@ def train():
 
   clf = clasificadores[indiceDelMejorClasificador]
 
-  print "Most important feature: ", features[np.argmax(clf.feature_importances_)]
-  print "Importance: %0.8f" % np.max(clf.feature_importances_)
+  print (f"Most important feature: {features[np.argmax(clf.feature_importances_)]}")
+  print (f"Importance: {np.max(clf.feature_importances_)}")
 
-  print "Less important feature: ", features[np.argmin(clf.feature_importances_)]
-  print "Importance: %0.8f" % np.min(clf.feature_importances_)
+  print (f"Less important feature: {features[np.argmin(clf.feature_importances_)]}")
+  print (f"Importance: {np.min(clf.feature_importances_)}")
     
   prediction = clf.predict(X)
   
