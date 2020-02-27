@@ -1,10 +1,13 @@
 # Práctica Minería de datos
+[![forthebadge made-with-python](https://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
 [![CircleCI](https://circleci.com/gh/sergiomgm/PracticaAutenticacionMIN.svg?style=svg&circle-token=7e227970d2fd3e37e559ae104988caf59b935933)](https://circleci.com/gh/sergiomgm/PracticaAutenticacionMIN)
 
 
 La práctica consiste en hacer una aplicación web que aprenda el patrón de escritura de un usuario y permita el acceso únicamente a ese usuario.
 Para ello en el campo contraseña se escribirá la frase **TRES TRISTES TIGRES**, cuántas más veces lo escriba el usuario mejor funcionará el algoritmo.
+
+
 
 # Ejecución
 
